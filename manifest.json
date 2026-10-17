@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "BetterTikTok",
+  "version": "1.0.0",
+  "description": "An open-source extension that improves TikTok: one-click video download, decluttered layout, ad hiding, a player toolbar, keyboard shortcuts and a smoother UI.",
+  "minimum_chrome_version": "111",
+  "permissions": ["storage", "downloads", "contextMenus", "clipboardWrite"],
+  "host_permissions": ["https://*.tiktok.com/*", "https://tiktok.com/*"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.tiktok.com/*", "https://tiktok.com/*"],
+      "js": [
+        "src/common/defaults.js",
+        "src/content/util.js",
+        "src/content/downloader.js",
+        "src/content/layout.js",
+        "src/content/player.js",
+        "src/content/shortcuts.js",
+        "src/content/main.js"
+      ],
+      "css": ["src/content/styles.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://*.tiktok.com/*", "https://tiktok.com/*"],
+      "js": ["src/content/inject.js"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "BetterTikTok",
+    "default_icon": {
+      "16": "src/icons/icon16.png",
+      "32": "src/icons/icon32.png",
+      "48": "src/icons/icon48.png"
+    }
+  },
+  "options_page": "src/options/options.html",
+  "icons": {
+    "16": "src/icons/icon16.png",
+    "32": "src/icons/icon32.png",
+    "48": "src/icons/icon48.png",
+    "128": "src/icons/icon128.png"
+  }
+}

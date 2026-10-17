@@ -1,0 +1,166 @@
+/*
+ * BetterTikTok – shared switch/row styling for the popup and options page.
+ */
+
+:root {
+  --bt-bg: #121213;
+  --bt-card: #1c1c1f;
+  --bt-line: rgba(255, 255, 255, 0.09);
+  --bt-text: #f1f1f2;
+  --bt-dim: #9b9b9f;
+  --bt-red: #fe2c55;
+  --bt-cyan: #25f4ee;
+  --bt-radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bt-bg);
+  color: var(--bt-text);
+  font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 0;
+  border-top: 1px solid var(--bt-line);
+}
+
+.row:first-child {
+  border-top: 0;
+}
+
+.row .label b {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.row .label small {
+  display: block;
+  max-width: 34ch;
+  margin-top: 2px;
+  color: var(--bt-dim);
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.row select {
+  padding: 6px 8px;
+  color: var(--bt-text);
+  background: #26262a;
+  border: 1px solid var(--bt-line);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.row select:focus-visible {
+  outline: 2px solid var(--bt-cyan);
+  outline-offset: 1px;
+}
+
+/* switch ------------------------------------------------------------------ */
+
+.sw {
+  position: relative;
+  flex: none;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+}
+
+.sw input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.sw .track {
+  position: absolute;
+  inset: 0;
+  background: #3a3a3f;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.sw .track::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.sw input:checked + .track {
+  background: var(--bt-red);
+}
+
+.sw input:checked + .track::before {
+  transform: translateX(16px);
+}
+
+.sw input:focus-visible + .track {
+  outline: 2px solid var(--bt-cyan);
+  outline-offset: 2px;
+}
+
+/* buttons ----------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  color: var(--bt-text);
+  background: #26262a;
+  border: 1px solid var(--bt-line);
+  border-radius: 10px;
+  font: 600 13px/1 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
+}
+
+.btn:hover {
+  background: #303036;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--bt-cyan);
+  outline-offset: 1px;
+}
+
+.btn.primary {
+  color: #fff;
+  background: var(--bt-red);
+  border-color: transparent;
+}
+
+.btn.primary:hover {
+  background: #ff3d63;
+}
+
+.btn.danger:hover {
+  background: rgba(254, 44, 85, 0.16);
+  border-color: rgba(254, 44, 85, 0.5);
+}

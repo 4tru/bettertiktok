@@ -1,0 +1,429 @@
+/*
+ * BetterTikTok – injected page styles.
+ *
+ * Everything is gated by classes on <html> (toggled by layout.js), so every
+ * feature is instantly reversible. Selector lists are intentionally generous:
+ * if TikTok renames one class, another candidate usually still matches.
+ */
+
+/* ============================ hidden blocks ============================= */
+
+html.bt-hide-ads .bt-ad-item {
+  display: none !important;
+}
+
+html.bt-hide-sidebar .bt-side-block {
+  display: none !important;
+}
+
+html.bt-hide-comments .bt-comment-block {
+  display: none !important;
+}
+
+/* Candidate selectors – graceful degradation (JS marking is the main path). */
+html.bt-hide-sidebar [data-e2e="explore-list"],
+html.bt-hide-sidebar [class*="DivRightSidebar"],
+html.bt-hide-sidebar [class*="RightSidebar"] {
+  display: none !important;
+}
+
+html.bt-hide-comments [data-e2e="comment-section"],
+html.bt-hide-comments [data-e2e="comments"],
+html.bt-hide-comments [class*="DivCommentList"],
+html.bt-hide-comments [class*="CommentContainer"],
+html.bt-hide-comments [class*="CommentPanel"],
+html.bt-hide-comments [class*="comment-container"] {
+  display: none !important;
+}
+
+html .bt-ad-item,
+html .bt-side-block,
+html .bt-comment-block {
+  transition: opacity 0.2s ease;
+}
+
+/* ============================= focus mode ============================== */
+
+html.bt-focus header,
+html.bt-focus nav,
+html.bt-focus [class*="DivSideNav"],
+html.bt-focus [class*="MainNav"] {
+  opacity: 0.28;
+  filter: saturate(0.55) brightness(0.9);
+  transition: opacity 0.35s ease, filter 0.35s ease;
+}
+
+html.bt-focus header:hover,
+html.bt-focus header:focus-within,
+html.bt-focus nav:hover,
+html.bt-focus [class*="DivSideNav"]:hover {
+  opacity: 1;
+  filter: none;
+}
+
+html.bt-focus .bt-side-block,
+html.bt-focus [class*="RightSidebar"] {
+  opacity: 0.22;
+  transition: opacity 0.35s ease;
+}
+
+html.bt-focus .bt-side-block:hover,
+html.bt-focus [class*="RightSidebar"]:hover {
+  opacity: 0.95;
+}
+
+/* ============================== smooth UI ============================== */
+
+html.bt-smooth,
+html.bt-smooth body {
+  scroll-behavior: smooth !important;
+}
+
+html.bt-smooth *,
+html.bt-smooth *::before,
+html.bt-smooth *::after {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+html.bt-smooth ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html.bt-smooth ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.bt-smooth ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  background-clip: content-box;
+  border: 2px solid transparent;
+  border-radius: 99px;
+}
+
+html.bt-smooth ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.38);
+  background-clip: content-box;
+}
+
+html.bt-smooth img {
+  transition: opacity 0.2s ease;
+}
+
+html.bt-smooth a,
+html.bt-smooth button,
+html.bt-smooth [role="button"] {
+  transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+/* ============================== toolbar ================================ */
+
+html:not(.bt-toolbar) #bt-panel {
+  display: none !important;
+}
+
+#bt-panel {
+  position: fixed;
+  right: 18px;
+  bottom: 148px;
+  z-index: 2147483000;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  color: #fff;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: rgba(16, 16, 18, 0.78);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+  animation: bt-panel-in 0.3s cubic-bezier(0.2, 0.9, 0.3, 1) 0.12s forwards;
+  transition: box-shadow 0.2s ease;
+}
+
+@keyframes bt-panel-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#bt-panel.bt-dragging {
+  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.7);
+}
+
+#bt-panel .bt-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1px 3px 3px;
+  cursor: grab;
+  touch-action: none;
+}
+
+#bt-panel .bt-head:active {
+  cursor: grabbing;
+}
+
+#bt-panel .bt-grip {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+#bt-panel .bt-grip svg {
+  width: 15px;
+  height: 15px;
+}
+
+#bt-panel .bt-collapse {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: transform 0.22s ease, background 0.15s ease, color 0.15s ease;
+}
+
+#bt-panel .bt-collapse:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+#bt-panel .bt-collapse svg {
+  width: 16px;
+  height: 16px;
+}
+
+#bt-panel.bt-collapsed {
+  border-radius: 999px;
+}
+
+#bt-panel.bt-collapsed .bt-collapse {
+  transform: rotate(180deg);
+}
+
+#bt-panel.bt-collapsed .bt-grid {
+  display: none;
+}
+
+#bt-panel .bt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 42px);
+  gap: 3px;
+}
+
+#bt-panel .bt-grid button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 38px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  color: #f1f1f2;
+  cursor: pointer;
+  font: 600 12px/1 ui-sans-serif, system-ui, sans-serif;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.08s ease,
+    border-color 0.15s ease;
+}
+
+#bt-panel .bt-grid button:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+#bt-panel .bt-grid button:active {
+  transform: scale(0.92);
+}
+
+#bt-panel .bt-grid button:focus-visible {
+  outline: 2px solid #25f4ee;
+  outline-offset: 1px;
+}
+
+#bt-panel .bt-grid button.bt-on {
+  color: #25f4ee;
+  background: rgba(37, 244, 238, 0.12);
+  border-color: rgba(37, 244, 238, 0.28);
+}
+
+#bt-panel .bt-grid button.bt-hidden {
+  display: none;
+}
+
+#bt-panel .bt-grid svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+/* play/pause + mute icon swapping */
+#bt-panel [data-act="play"] .bt-i-pause,
+#bt-panel [data-act="play"].bt-on .bt-i-play,
+#bt-panel [data-act="mute"] .bt-i-mute,
+#bt-panel [data-act="mute"].bt-on .bt-i-vol {
+  display: none;
+}
+
+#bt-panel [data-act="play"].bt-on .bt-i-pause,
+#bt-panel [data-act="mute"].bt-on .bt-i-mute {
+  display: block;
+}
+
+/* ================================ toast ================================ */
+
+#bt-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 64px;
+  z-index: 2147483646;
+  max-width: min(90vw, 480px);
+  padding: 10px 18px;
+  color: #fff;
+  font: 600 13px/1.35 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: rgba(20, 20, 22, 0.92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  transform: translateX(-50%);
+  animation: bt-toast-in 0.26s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+#bt-toast.bt-err {
+  border-color: rgba(254, 44, 85, 0.65);
+}
+
+#bt-toast[hidden] {
+  display: none;
+}
+
+@keyframes bt-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(14px) scale(0.95);
+  }
+}
+
+/* ============================== shortcuts ============================== */
+
+#bt-shortcuts {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483645;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: bt-fade-in 0.18s ease;
+}
+
+#bt-shortcuts[hidden] {
+  display: none;
+}
+
+@keyframes bt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+#bt-shortcuts .card {
+  width: min(520px, 92vw);
+  max-height: min(80vh, 640px);
+  overflow: auto;
+  padding: 8px 8px 14px;
+  background: #161618;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+  animation: bt-pop-in 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+@keyframes bt-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+
+#bt-shortcuts header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 8px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+#bt-shortcuts .bt-x {
+  padding: 2px 9px;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 22px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+#bt-shortcuts .bt-x:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+#bt-shortcuts dl {
+  margin: 0;
+  padding: 0 14px;
+}
+
+#bt-shortcuts dl > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 9px 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+#bt-shortcuts dt {
+  display: flex;
+  gap: 4px;
+}
+
+#bt-shortcuts dd {
+  margin: 0;
+  color: #b0b0b5;
+  font-size: 13px;
+  text-align: right;
+}
+
+#bt-shortcuts kbd {
+  padding: 3px 8px;
+  font: 600 11.5px/1.3 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: #eaeaec;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+}

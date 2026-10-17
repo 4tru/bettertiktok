@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BetterTikTok</title>
+    <link rel="stylesheet" href="../common/toggle.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="hd">
+      <img src="../icons/icon32.png" width="28" height="28" alt="" />
+      <div class="hd-text">
+        <h1>BetterTikTok</h1>
+        <span class="ver" id="version"></span>
+      </div>
+    </header>
+
+    <section class="status" id="status">
+      <div class="status-title">Loading…</div>
+      <div class="status-sub"></div>
+    </section>
+
+    <div class="actions">
+      <button class="btn primary" id="act-download" title="Download the video (D)">
+        ⬇ Download
+      </button>
+      <button class="btn" id="act-cover" title="Download the cover/thumbnail">
+        🖼 Cover
+      </button>
+      <button class="btn" id="act-copy" title="Copy the video link (C)">
+        🔗 Copy link
+      </button>
+      <button class="btn" id="act-play" title="Play / pause (Space)">⏯ Play</button>
+    </div>
+
+    <h2>Quick toggles</h2>
+    <div id="toggles"></div>
+
+    <footer>
+      <button class="btn" id="open-options">⚙ All settings</button>
+      <a class="link" id="open-tiktok" href="https://www.tiktok.com/" target="_blank" rel="noreferrer">
+        Open TikTok ↗
+      </a>
+    </footer>
+
+    <script src="../common/defaults.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

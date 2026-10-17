@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate manifest
+        run: jq -e '.manifest_version == 3 and (.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))' manifest.json
+
+      - name: Check JavaScript syntax
+        run: find src -name '*.js' -print0 | xargs -0 -n1 node --check
+
+      - name: Package the extension
+        run: bash scripts/build.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bettertiktok-extension
+          path: dist/*.zip
+          if-no-files-found: error
